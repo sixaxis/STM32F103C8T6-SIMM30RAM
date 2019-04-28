@@ -61,6 +61,7 @@ unsigned char test_ram();
 int number_digits (int n);
 void sendIntToPort(long n);
 void _delay_ms(unsigned int del);
+void _delay_us(unsigned int del);
 unsigned char ram_read(unsigned int row, unsigned int col);
 void ram_write(unsigned int row, unsigned int col, unsigned char val);
 
@@ -186,7 +187,7 @@ void ram_init() {
 	
 	unsigned char t;
 	
-	RCC_APB2ENR |= 0x0000081C;   //ENABLE GPIOs Ñ,B,A AND TIMER1  
+	RCC_APB2ENR |= 0x0000081C;   //ENABLE GPIOs Ã‘,B,A AND TIMER1  
 	GPIOB_CRL &= 0x00000FF0; 
 	GPIOB_CRL |= 0x33333003;     // GPIOB 3-13,0 OUT Push-pull (address)  
 	GPIOB_CRH &= 0xFF000000;
@@ -282,6 +283,6 @@ void send_debug(char s)              //SOFT usart RX (9600 BAUD)
      }
 
      GPIOB_BSRR = TX_PIN;
-     delay_us(105);
+     _delay_us(105);
      TIM1_DIER   |= 0x1;             // TIM1 ON
  }
